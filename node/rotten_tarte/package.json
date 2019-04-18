@@ -1,0 +1,17 @@
+{
+  "name": "rotten_tarte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.4.1",
+    "body-parser": "^1.18.3",
+    "express-oauth-server": "^2.0.0",
+    "nanoid": "^2.0.1"
+  }
+}

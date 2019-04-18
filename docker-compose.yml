@@ -1,0 +1,46 @@
+version: '3'
+services:
+  web:
+    # depends_onで依存関係を示すappのapiを使いたいのでappコンテナを指定.
+    depends_on:
+      - app
+      - db
+    # build はDockerfileからビルドすることを示す.
+    build: ./vue
+    container_name: rotten_tarte_web
+    tty: true
+    volumes:
+      - ./vue/app:/app
+    ports:
+      - "8080:8080"
+  app:
+    depends_on:
+      - db
+    build: ./node
+    image: node-express-dev:1.0
+    container_name: rotten_tarte
+    tty: true
+    volumes:
+      - ./node/rotten_tarte:/rotten_tarte
+    ports:
+      - "3000:3000"
+    # links で連携させるコンテナを示す.
+    # depends_onはビルド時に依存関係を考慮してビルドさせるために指定.
+    # links は appコンテナの/etc/hostsにdbのipを記述してくれる.
+    # links:
+    #   - db
+    # ...という話だったが、composeのver2以降は不要らしい。なくてもcompose.yml内に記載されたものは自動でリンクできる
+  db:
+    # image はbuildをせず既存イメージを用いる場合に使う.
+    image: mysql:5.7
+    container_name: rotten_tarte_db
+    # mysqlのようにenvironmentで指定が必須の変数もあるので、公式イメージを利用する際には注意.
+    environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: database
+    ports:
+      - "13306:3306"
+        # 永続化が必要なものに対してはvolumesなどでホスト側に残す
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+  # mysql -u root -p -D database でdbに入る
