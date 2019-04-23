@@ -4,7 +4,7 @@ export default {
   mode: 'universal',
 
   server: {
-    port: 8080, // デフォルト: 3000
+    port: 8080,
     host: '0.0.0.0', // デフォルト: localhost
   },
 
@@ -44,9 +44,13 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
   axios: {
+  },
+  proxy: {
+    '/api': 'http://app:3000',
   },
 
   /*
