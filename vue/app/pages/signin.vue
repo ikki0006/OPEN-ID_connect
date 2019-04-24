@@ -2,7 +2,7 @@
   <div class="login-form">
     <form @submit.prevent="login">
       <p class="error" v-if="error">{{ error }}</p>
-      <p><input type="text" v-model="email" placeholder="email" name="email"/></p>
+      <p><input type="text" v-model="name" placeholder="name" name="name"/></p>
       <p><input type="password" v-model="password" placeholder="password" name="password"/></p>
       <div class="login-btn">
         <button type="submit">ログイン</button>

@@ -12,6 +12,8 @@
     "@nuxtjs/axios": "^5.4.1",
     "body-parser": "^1.18.3",
     "express-oauth-server": "^2.0.0",
-    "nanoid": "^2.0.1"
+    "mysql2": "^1.6.5",
+    "nanoid": "^2.0.1",
+    "sequelize": "^5.7.4"
   }
 }

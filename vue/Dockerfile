@@ -17,3 +17,6 @@ WORKDIR /app
 
 # ポート8080番を開放する
 EXPOSE 8080
+
+# # cmdでnust.js起動
+CMD ["npm", "run", "dev"]
