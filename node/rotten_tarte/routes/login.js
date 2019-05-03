@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require(__dirname + '/../models');
+const db = require('../models');
 const nanoid =  require('nanoid');
 const router = express.Router()
 
@@ -14,22 +14,22 @@ router.get('/user_oauth/:id', function (req, res, next) {
 
 // ユーザ登録
 router.post('/user_add', function (req, res, next) {
-    db.user.create({
-        client_name: req.body.client_name,
-        client_id: nanoid(),
-        client_secret: nanoid(),
-        redirect_uri: req.body.redirect_uri,
-        user_id: req.body.user_id
-    }).then(result => {
-        console.log(result.get({plain: true}))
-        res.json('ok')
-    }).catch(err => {
-        console.log(err)
-        res.status(400).json('DataBase Error')
-    })
+  //console.log(db.users)
+  db.users.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      code: req.body.code
+  }).then(result => {
+      console.log(result.get({plain: true}))
+      res.json({message: '登録完了しました'})
+  }).catch(err => {
+      console.log(err)
+      res.status(400).json('DataBase Error')
+  })
 })
 
-// ユーザ削除
+// ユーザ情報変更
 router.delete('/client/:id', function (req, res, next) {
     db.oauth_clients.destroy({
         where: {id: req.params.id}

@@ -35,15 +35,21 @@
       async signup() {
         try {
           const res = await this.$store.dispatch("signup", {
+            name: this.name,
             email: this.email,
             password: this.password,
             repassword: this.repassword,
             code: this.code
           })
-          //this.$router.push("/signup")
+          if(res.message == "登録完了しました"){
+            this.name = ""
+            this.email = ""
+            this.code = ""
+          }
           this.password = ""
           this.repassword = ""
           this.message = res.message
+          this.error = null
         } catch(e) {
           this.error = e.message
         }

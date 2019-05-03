@@ -40,7 +40,13 @@ export default {
       // APIの通信。nustでリバプロしているので対象はnust自身
       // nust.config.jsで/apiをexpreeにルーティングしている
       // リバプロしないとクロスドメイン制約に引っかかる。。。
-      const response = await this.$axios.$get('http://localhost:8080/api/oauth/');
+      const response = await this.$axios.$post(
+        'http://localhost:8080/api/login/user_add', {
+            name: name,
+            enail: email,
+            password: hashpass,
+            code: code
+      });
       let data = response;
 
       // 入力したメールアドレスとパスワードが
