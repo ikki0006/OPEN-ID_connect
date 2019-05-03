@@ -16,7 +16,7 @@
     data() {
       return {
         error: null,
-        email: "",
+        name: "",
         password: "",
       }
     },
