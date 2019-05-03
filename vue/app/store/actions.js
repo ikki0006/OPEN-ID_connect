@@ -1,19 +1,17 @@
-var bcrypt = require('bcryptjs');
-const saltRounds = 10; //ストレッチング回数。passのhash化に必要
-
 export default {
   // login実行用
   async login({ commit }, { name, password }) {
     console.log(commit)
     try {
-      //hashを生成して保存
-      var hashpass = bcrypt.hashSync(password, saltRounds);
-      console.log(hashpass)
 
       // APIの通信。nustでリバプロしているので対象はnust自身
       // nust.config.jsで/apiをexpreeにルーティングしている
       // リバプロしないとクロスドメイン制約に引っかかる。。。
-      const response = await this.$axios.$get('http://localhost:8080/api/oauth/');
+      const response = await this.$axios.$post(
+        'http://localhost:8080/api/login/user_oauth', {
+          name: name,
+          password: password
+        });
       let data = response;
 
       // 入力したメールアドレスとパスワードが
@@ -29,13 +27,9 @@ export default {
   async signup({ commit }, { name, email, password, repassword, code}) {
     console.log(commit)
     try {
-
       if(password != repassword){
         return { sate: false, message:"passwordが一致しません"}
       }
-      //hashを生成して保存
-      var hashpass = bcrypt.hashSync(password, saltRounds);
-      console.log(hashpass)
 
       // APIの通信。nustでリバプロしているので対象はnust自身
       // nust.config.jsで/apiをexpreeにルーティングしている
@@ -44,7 +38,7 @@ export default {
         'http://localhost:8080/api/login/user_add', {
             name: name,
             enail: email,
-            password: hashpass,
+            password: password,
             code: code
       });
       let data = response;

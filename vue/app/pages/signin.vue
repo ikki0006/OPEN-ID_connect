@@ -24,7 +24,7 @@
       async login() {
         try {
           await this.$store.dispatch("login", {
-            email: this.email,
+            name: this.name,
             password: this.password
           })
           this.$router.push("/")

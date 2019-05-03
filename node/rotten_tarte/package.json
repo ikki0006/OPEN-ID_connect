@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@nuxtjs/axios": "^5.4.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express-oauth-server": "^2.0.0",
     "mysql2": "^1.6.5",
