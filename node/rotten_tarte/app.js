@@ -2,6 +2,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var oauth = require('./routes/oauth');
 var login = require('./routes/login')
 
@@ -11,6 +12,17 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000; // port番号を指定
 
+//ログインセッションの作成定義
+app.use(session({
+ secret: 'secret',
+ resave: false,
+ saveUninitialized: false,
+ cookie:{
+ httpOnly: true,
+ secure: false,
+ maxage: 1000 * 60 * 30
+ }
+}));
 
 // GET http://localhost:3000/api/v1/
 app.get('/api/v1/',function(req,res){

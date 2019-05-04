@@ -5,11 +5,12 @@ import actions from "./actions"
 const store = () => {
   return new Vuex.Store({
     state: {
-      // ユーザーのログイン状況フラグ
+      // ユーザーのログイン状況フラグ　
       authUser: null
     },
-      mutations,
-      actions
-    })
+    mutations,
+    actions
+  })
 }
-export default store
+
+//export default store

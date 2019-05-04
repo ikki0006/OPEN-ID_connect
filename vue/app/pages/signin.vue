@@ -13,6 +13,7 @@
 
 <script>
   export default {
+    middleware: 'noAuthenticated',
     data() {
       return {
         error: null,

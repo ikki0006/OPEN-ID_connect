@@ -13,6 +13,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express-oauth-server": "^2.0.0",
+    "express-session": "^1.16.1",
     "mysql2": "^1.6.5",
     "nanoid": "^2.0.1",
     "sequelize": "^5.7.4"

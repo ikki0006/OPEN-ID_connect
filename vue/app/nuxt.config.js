@@ -7,7 +7,9 @@ export default {
     port: 8080,
     host: '0.0.0.0', // デフォルト: localhost
   },
-
+  router: {
+    //middleware: 'authenticated'
+  },
   /*
   ** Headers of the page
   */
@@ -52,7 +54,6 @@ export default {
   proxy: {
     '/api': 'http://app:3000',
   },
-
   /*
   ** Build configuration
   */
