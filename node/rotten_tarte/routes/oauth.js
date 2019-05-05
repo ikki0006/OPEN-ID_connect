@@ -3,14 +3,6 @@ const router = express.Router();
 const db = require(__dirname + '/../models');
 const nanoid =  require('nanoid');
 
-
-//test用
-router.get('/', function (req, res, next) {
-  res.json({
-      message:"TEST成功ですわ"
-  });
-})
-
 // クライアント取得
 router.get('/client/:id', function (req, res, next) {
     db.oauth_clients.findAll({

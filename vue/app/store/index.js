@@ -8,9 +8,12 @@ const store = () => {
       // ユーザーのログイン状況フラグ　
       authUser: null
     },
+    getters: {
+      authUser: (state) => state.authUser
+    },
     mutations,
     actions
   })
 }
 
-//export default store
+export default store

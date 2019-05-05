@@ -23,12 +23,15 @@
     },
     methods: {
       async login() {
+        console.log(this.$route.fullPath)
         try {
           await this.$store.dispatch("login", {
             name: this.name,
             password: this.password
           })
-          this.$router.push("/")
+          //パラメータを引き継ぐ。
+          var path = this.$route.fullPath.replace('signin', '')
+          this.$router.push(path)
         } catch(e) {
           this.error = e.message
         }

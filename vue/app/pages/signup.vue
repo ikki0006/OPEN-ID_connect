@@ -12,7 +12,7 @@
       </div>
       <p class="message" v-if="message">{{ message }}</p>
       <p>アカウントをお持ちの方は
-      <router-link to="/signin">こちら</router-link>
+      <router-link to="/signin?response_type=code">こちら</router-link>
     </p>
     </form>
   </div>

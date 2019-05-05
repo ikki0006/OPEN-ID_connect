@@ -28,6 +28,12 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+  async fetch ({ route }) {
+    if(route.fullPath != "/"){
+      console.log("SSO開始")
+
+    }
+  },
   components: {
     Logo
   },
