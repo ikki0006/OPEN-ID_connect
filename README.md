@@ -1,5 +1,5 @@
 # OPEN-ID_connect
-docker(expressとnust.js)で作るopen-id connect
+docker(expressとnuxt.js)で作るopen-id connect
 
 cd <cloneしたディレクトリ>
 
@@ -7,7 +7,7 @@ docker-compose build
 
 docker-compose up -d
 
-### web(nust.js)に入る場合
+### web(nuxt.js)に入る場合
 docker exec -it rotten_tarte_web /bin/bash
 
 ### app(node.js)に入る場合
