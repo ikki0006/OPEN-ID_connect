@@ -24,14 +24,28 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
-  async fetch ({ store }) {
-    console.log(store.getters['authUser'])
-  },
+  async asyncData({route, app, query, redirect}){
+    if(route.fullPath == "/test_sso")
+      return 0
+    console.log(query)
+    // let data= await app.$axios.post('http://localhost:8080/api/oauth2/token', {
+    //   // response_type: query["response_type"],
+    //   // client_id: query["client_id"],
+    //   // redirect_uri: query["redirect_uri"],
+    //   // scope: query["scope"],
+    //   // state: query["state"]
+    // })
+    },
   data() {
     return {
       formError: null,
+      response_type: "code",
+      client_id: "phDD5fJeWL0ffLdbkNSH4",
+      redirect_uri: "http%3a%2f%2flocalhost%3a8080%2ftest_sso",
+      scope: "xxxx",
+      state: "abcdef",
       //リダイレクトURLはエンコードしてるので注意。直す必要あり。
-      link_para: '/?response_type=code&client_id=phDD5fJeWL0ffLdbkNSH4&redirect_uri=http%3a%2f%2flocalhost%3a8080%2ftest_sso&scope=xxxx&state=abcdef'
+      link_para: `/?response_type=code&client_id=phDD5fJeWL0ffLdbkNSH4&redirect_uri=http%3a%2f%2flocalhost%3a8080%2ftest_sso&scope=xxxx&state=abcdef`
     }
   },
   components: {

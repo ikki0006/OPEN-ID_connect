@@ -29,7 +29,7 @@ import Logo from '~/components/Logo.vue'
 
 export default {
   middleware: 'authenticated',
-  async asyncData({route, app, query}){
+  async asyncData({route, app, query, redirect}){
     if(route.fullPath == "/")
       return 0
     let state = await app.$axios.$get(
@@ -44,7 +44,9 @@ export default {
       scope: query["scope"],
       state: query["state"]
     })
-    console.log(data)
+    let redirect_uri = data.request.responseURL
+    console.log(app)
+    return redirect(redirect_uri)
 
   },
   components: {

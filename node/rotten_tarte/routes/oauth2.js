@@ -11,8 +11,6 @@ express.oauth = new OAuthServer({
 
 // 現在ログイン中のユーザー情報をハンドリングする
 async function loadCurrentUser(req) {
-    const User = {id: 1}
-    return User
     const user = req.session.user
     if(user == undefined)
       throw new Error("未ログイン");
@@ -20,25 +18,6 @@ async function loadCurrentUser(req) {
         where: {name: user}
     })
     return {id: id[0].id}
-    // db.user.findAll({
-    //     where: {name: user}
-    // }).then(result => {
-    //   User = { id: results[0].id }
-    //   console.log(User)
-    //   return User
-    // }).catch(err => {
-    //     console.log(err)
-    //     return err
-    // })
-    // const User = async () => {
-    //   const user = req.session.user
-    //   const id = await b.user.findAll({
-    //       where: {name: user}
-    //   })
-    //   console.log(id)
-    //   return {id: 1}
-    // }
-
 }
 
 router.get('/test', function(req, res, next){
@@ -55,6 +34,26 @@ router.post('/authorize', express.oauth.authorize({
 }), function (req, res, next) {
 
         // new OAuthServer時にoptions: {continueMiddleware: true}が呼ばれていなければ読み込まれません
+})
+
+// トークンエンドポイント POST
+// grant_typeがauthorization_codeの場合、
+// client_id, client_secret, redirect_uri, 上記で通知された認可コードを送信する
+// アクセストークンとリフレッシュトークンが返却される
+// grant_typeがrefresh_tokenの場合、
+// client_id, client_secret, refresh_tokenを送信する
+// 新たなアクセストークンとリフレッシュトークンが返却される
+router.post('/token', app.oauth.token(), function (req, res, next) {
+    /***********************************
+    トークンエンドポイント パラメータ一覧
+    ?grant_type=authorization_code or refresh_token 必須 clientテーブルにgrantカラムとして登録しておくっぽい
+    &client_id={クライアントID} 必須
+    &client_secret={クライアントシークレット} 必須
+    &redirect_uri={リダイレクトURI} authorization_codeの場合必須
+    &code={認可コード} 必須 authorization_codeの場合必須
+    &refresh_token={リフレッシュトークン} refresh_tokenの場合必須
+    ************************************/
+    res.json('token') // <--- new OAuthServer時にoptions: {continueMiddleware: true}が呼ばれていなければ読み込まれません
 })
 
 module.exports = router;
