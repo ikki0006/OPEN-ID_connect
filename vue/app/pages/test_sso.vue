@@ -31,7 +31,7 @@ export default {
     return {
       formError: null,
       //リダイレクトURLはエンコードしてるので注意。直す必要あり。
-      link_para: '/?response_type=code?client_id= test_system?redirect_uri=http%3a%2f%2flocalhost%3a8080%2ftest_sso?scope=xxxx'
+      link_para: '/?response_type=code&client_id=phDD5fJeWL0ffLdbkNSH4&redirect_uri=http%3a%2f%2flocalhost%3a8080%2ftest_sso&scope=xxxx&state=abcdef'
     }
   },
   components: {

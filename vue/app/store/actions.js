@@ -40,5 +40,26 @@ export default {
         'http://localhost:8080/api/login/oauth_check')
         console.log(response)
     } catch(e) { throw e }
-  }
+  },
+  // クライアント登録用
+  async cliend_add({ commit }, {client_name, redirect_uri, user_id}) {
+    try{
+      this.$axios.$post(
+        'http://localhost:8080/api/client/', {
+            client_name: client_name,
+            redirect_uri: redirect_uri,
+            user_id: user_id
+      });
+      let data = response;
+      return response
+    } catch (e) { throw e }
+  },
+  //認可コード取得用
+  async get_code({ commit }, { client_id, redirect_uri, scope}) {
+    try{
+      const response = await this.$axios.$get(
+        'http://localhost:8080/api/login/oauth_check')
+        console.log(response)
+    } catch(e) { throw e }
+  },
 }

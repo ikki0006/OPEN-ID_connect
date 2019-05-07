@@ -28,16 +28,28 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
-  async fetch ({ route }) {
-    if(route.fullPath != "/"){
-      console.log("SSO開始")
+  middleware: 'authenticated',
+  async asyncData({route, app, query}){
+    if(route.fullPath == "/")
+      return 0
+    let state = await app.$axios.$get(
+      'http://localhost:8080/api/login/oauth_check')
+    console.log(state)
+    if(!state)
+      return 0
+    let data= await app.$axios.post('http://localhost:8080/api/oauth2/authorize', {
+      response_type: query["response_type"],
+      client_id: query["client_id"],
+      redirect_uri: query["redirect_uri"],
+      scope: query["scope"],
+      state: query["state"]
+    })
+    console.log(data)
 
-    }
   },
   components: {
     Logo
-  },
-  middleware: 'authenticated',
+  }
 }
 </script>
 

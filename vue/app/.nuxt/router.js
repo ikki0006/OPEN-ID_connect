@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _026fe317 = () => interopDefault(import('../pages/client_add.vue' /* webpackChunkName: "pages/client_add" */))
 const _34780b0c = () => interopDefault(import('../pages/signin.vue' /* webpackChunkName: "pages/signin" */))
 const _490e6182 = () => interopDefault(import('../pages/signup.vue' /* webpackChunkName: "pages/signup" */))
 const _06bb67cc = () => interopDefault(import('../pages/test_sso.vue' /* webpackChunkName: "pages/test_sso" */))
@@ -82,6 +83,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/client_add",
+      component: _026fe317,
+      name: "client_add"
+    }, {
       path: "/signin",
       component: _34780b0c,
       name: "signin"

@@ -14,12 +14,9 @@ router.post('/user_oauth/', function (req, res, next) {
         results = JSON.parse(JSON.stringify(result));
         if(results.length == 0)
           res.status(401).json("Unauthorized");
-        console.log(results[0].password);
         pass = bcrypt.compareSync(req.body.password, results[0].password);
-        console.log(pass);
         if(!pass)
           res.status(401).json("Unauthorized");
-
         //セッションの作成
         req.session.user = req.body.name;
         res.json("ログイン成功");
@@ -33,7 +30,8 @@ router.post('/user_oauth/', function (req, res, next) {
 router.get('/oauth_check', function(req, res, next){
   if (!req.session.user)
     res.json(false);
-  res.json(true);
+  else
+    res.json(true);
 })
 
 // ユーザ登録
@@ -46,7 +44,6 @@ router.post('/user_add', function (req, res, next) {
       password: hashpass,
       code: req.body.code
   }).then(result => {
-      console.log(result.get({plain: true}))
       res.json({message: '登録完了しました'})
   }).catch(err => {
       console.log(err)
