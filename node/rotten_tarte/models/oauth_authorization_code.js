@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     scope: DataTypes.STRING,
     expires_at: DataTypes.DATE,
     redirect_uri: DataTypes.STRING,
+    client_id: DataTypes.STRING,
     user_id: DataTypes.INTEGER
   }, {});
   oauth_authorization_code.associate = function(models) {

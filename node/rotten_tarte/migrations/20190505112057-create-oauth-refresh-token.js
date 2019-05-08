@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       expires_at: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       scope: {
         type: Sequelize.STRING

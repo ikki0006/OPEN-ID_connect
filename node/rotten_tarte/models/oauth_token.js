@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const oauth_token = sequelize.define('oauth_token', {
     access_token: DataTypes.STRING,
-    expires_at: DataTypes.STRING,
+    expires_at: DataTypes.DATE,
     scope: DataTypes.STRING,
     client_id: DataTypes.STRING,
     user_id: DataTypes.INTEGER

@@ -20,6 +20,9 @@ module.exports = {
       redirect_uri: {
         type: Sequelize.STRING
       },
+      client_id: {
+        type: Sequelize.STRING
+      },
       user_id: {
         type: Sequelize.INTEGER
       },

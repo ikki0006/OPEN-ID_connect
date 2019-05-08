@@ -43,7 +43,7 @@ router.post('/authorize', express.oauth.authorize({
 // grant_typeがrefresh_tokenの場合、
 // client_id, client_secret, refresh_tokenを送信する
 // 新たなアクセストークンとリフレッシュトークンが返却される
-router.post('/token', app.oauth.token(), function (req, res, next) {
+router.post('/token', express.oauth.token(), function (req, res, next) {
     /***********************************
     トークンエンドポイント パラメータ一覧
     ?grant_type=authorization_code or refresh_token 必須 clientテーブルにgrantカラムとして登録しておくっぽい
@@ -54,6 +54,12 @@ router.post('/token', app.oauth.token(), function (req, res, next) {
     &refresh_token={リフレッシュトークン} refresh_tokenの場合必須
     ************************************/
     res.json('token') // <--- new OAuthServer時にoptions: {continueMiddleware: true}が呼ばれていなければ読み込まれません
+})
+
+// セキュリティで保護されたルート
+// headerにAuthorization: Bearer {アクセストークン}を設定することでアクセスできる
+router.get('/secret', express.oauth.authenticate(), function (req, res, next) {
+    res.json('secret')
 })
 
 module.exports = router;

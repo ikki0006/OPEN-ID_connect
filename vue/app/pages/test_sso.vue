@@ -22,30 +22,55 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+const querystring = require('querystring')
+var response_type = "code"
+var client_id = "phDD5fJeWL0ffLdbkNSH4"
+var redirect_uri = "http%3a%2f%2flocalhost%3a8080%2ftest_sso"
+var redirect_url = "http://localhost:8080/test_sso"
+var scope = "xxxx"
+var state = "abcdef"
+var client_secret = "Wi9I9U-DU0yIo1i8HQ4mi"
+var uel_query = `/?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}`
 
 export default {
+  async created(){
+    console.log(this)
+    if(this.$route.fullPath == "/test_sso")
+      return 0
+    var data = await this.$axios.post(
+      'http://localhost:8080/api/oauth2/token',
+      querystring.stringify({
+        grant_type: "authorization_code",
+        client_id: client_id,
+        client_secret: client_secret,
+        redirect_uri: redirect_url,
+        code: this.$route.query["code"]
+      }))
+    console.log(data.data)
+    var result = await this.$axios.get(
+      'http://localhost:8080/api/oauth2/secret',{
+          headers: { "Authorization": "Bearer " + data.data.access_token },
+          data: {}
+    })
+  },
   async asyncData({route, app, query, redirect}){
+    console.log("test")
     if(route.fullPath == "/test_sso")
       return 0
     console.log(query)
-    // let data= await app.$axios.post('http://localhost:8080/api/oauth2/token', {
-    //   // response_type: query["response_type"],
-    //   // client_id: query["client_id"],
-    //   // redirect_uri: query["redirect_uri"],
-    //   // scope: query["scope"],
-    //   // state: query["state"]
-    // })
-    },
+    // var data = await app.$axios.post('http://localhost:8080/api/oauth2/token', {
+    //   grant_type: "authorization_code",
+    //   // client_id: client_id,
+    //   // client_secret: client_secret,
+    //   // redirect_uri: redirect_uri,
+    //   // code: query["code"]
+    // }
+    // )
+  },
   data() {
     return {
       formError: null,
-      response_type: "code",
-      client_id: "phDD5fJeWL0ffLdbkNSH4",
-      redirect_uri: "http%3a%2f%2flocalhost%3a8080%2ftest_sso",
-      scope: "xxxx",
-      state: "abcdef",
-      //リダイレクトURLはエンコードしてるので注意。直す必要あり。
-      link_para: `/?response_type=code&client_id=phDD5fJeWL0ffLdbkNSH4&redirect_uri=http%3a%2f%2flocalhost%3a8080%2ftest_sso&scope=xxxx&state=abcdef`
+      link_para: uel_query
     }
   },
   components: {

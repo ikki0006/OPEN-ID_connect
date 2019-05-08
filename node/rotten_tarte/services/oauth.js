@@ -162,11 +162,13 @@ module.exports.getRefreshToken = function(refreshToken) {
 
 // 認可コードの取り消し
 module.exports.revokeAuthorizationCode = function(authorizationCode) {
-    return db.oauth_authorization_code.destroy({
-        where: {code: authorizationCode.code}
-    }).then(result => {
-        return !!result
-    })
+    // return db.oauth_authorization_code.destroy({
+    //     where: {code: authorizationCode.code}
+    // }).then(result => {
+    //     return !!result
+    // })
+    //認可コードを消すのが早すぎて、うまく処理ができていない。後で考える
+    return true
 }
 
 // トークンの取り消し
@@ -198,6 +200,8 @@ module.exports.saveAuthorizationCode = function(code, client, user) {
                 client: {id: authorizationCode.client_id},
                 user: {id: authorizationCode.user_id}
             }
+        }).catch(err => {
+            console.log(err)
         })
 }
 
