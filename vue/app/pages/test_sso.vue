@@ -8,13 +8,16 @@
       <h2 class="subtitle">
         SSO test project
       </h2>
-        <form v-if="!this.$store.state.authUser">
         <p v-if="formError" class="error">
           {{ formError }}
         </p>
-        <p><i><b>未ログイン</b>: 下記リンクよりSSOログインを実施してください</i></p>
-        <router-link :to="link_para">SSO用ページ</router-link>
-      </form>
+        <form v-if="!this.$store.state.authUser">
+          <p><i><b>未ログイン</b>: 下記リンクよりSSOログインを実施してください</i></p>
+        </form>
+        <form v-if="this.$store.state.authUser">
+          <p><i><b>ログイン済み</b>: ログアウトはないっす</i></p>
+        </form>
+      <router-link :to="link_para">SSO用ページ</router-link>
       <router-link to="/test_sso">自ページ遷移用</router-link>
     </div>
   </section>
@@ -52,6 +55,9 @@ export default {
           headers: { "Authorization": "Bearer " + data.data.access_token },
           data: {}
     })
+    if(result.data == "secret")
+      this.$store.state.authUser = true
+
   },
   async asyncData({route, app, query, redirect}){
     console.log("test")
